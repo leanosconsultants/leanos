@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free LeanOS Waste Assessment | LeanOS Consultants</title>
+  <meta name="description" content="A free LeanOS TIMWOODS waste assessment for business teams and learners.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="assessment-shell">
+<div id="header-placeholder"></div>
+
+<main>
+  <section class="assessment-header modern-assessment-hero">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Free assessment</p>
+        <h1>LeanOS Waste Assessment</h1>
+        <p class="lead">
+          Rate common workflow issues from 1 (never) to 5 (very often). Use the score to spot waste, training needs and automation opportunities.
+        </p>
+      </div>
+      <div class="assessment-summary-card">
+        <img class="summary-image" src="assets/images/leanos-assessment-board.jpg" alt="Operations improvement board">
+        <h3>Assessment flow</h3>
+        <div class="next-step"><span>1</span><p>Share your role and work type.</p></div>
+        <div class="next-step"><span>2</span><p>Score the eight TIMWOODS categories.</p></div>
+        <div class="next-step"><span>3</span><p>Receive your on-screen results and LeanOS follow-up.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form id="assessmentForm" class="modern-form assessment-form">
+        <div class="assessment-card">
+          <p class="form-kicker">Step 1</p>
+          <h2>General information</h2>
+
+          <div class="form-row">
+            <div>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="Name" required>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="Email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label for="organization">Company or organization</label>
+              <input type="text" id="organization" name="Organization" required>
+            </div>
+            <div>
+              <label for="role">Role or title</label>
+              <input type="text" id="role" name="Role" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label for="audience">Assessment type</label>
+              <select id="audience" name="AssessmentType" required>
+                <option value="">Select one</option>
+                <option>Business workflow assessment</option>
+                <option>Learner self-assessment</option>
+                <option>Team training assessment</option>
+              </select>
+            </div>
+            <div>
+              <label for="workType">Primary work type</label>
+              <select id="workType" name="WorkType" required>
+                <option value="">Select one</option>
+                <option>Administrative</option>
+                <option>Operations</option>
+                <option>Sales</option>
+                <option>Finance</option>
+                <option>Management</option>
+                <option>Healthcare</option>
+                <option>Manufacturing</option>
+                <option>Logistics</option>
+                <option>Retail</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="questionMount"></div>
+
+        <div class="assessment-actions">
+          <button type="submit" class="btn-primary">Submit Assessment</button>
+          <a href="booking.html" class="btn-secondary page-link">Book Strategy Call</a>
+        </div>
+
+        <div id="results" class="assessment-card" style="display:none;">
+          <h2>Waste assessment results</h2>
+          <div id="wasteResults"></div>
+          <p class="muted">Use this as a starting point for a LeanOS strategy call, proposal or training plan.</p>
+          <a href="contact.html" class="btn-primary page-link">Book a Strategy Call</a>
+        </div>
+
+        <p id="assessmentSubmitStatus" class="thank-you">
+          Your assessment entry was submitted to LeanOS Consultants.
+        </p>
+        <p id="assessmentSubmitError" class="form-error">
+          Your score was calculated, but the entry could not be sent. Please contact leanos.consultants@gmail.com.
+        </p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="layout.js"></script>
+<script>
+const sections = {
+  T: {
+    title: "Transportation: Unnecessary movement of information",
+    questions: [
+      "I frequently forward work to others because ownership is unclear.",
+      "Work passes through multiple people before it is completed.",
+      "I must request information from multiple departments to finish one task.",
+      "Files or documents are stored in several different locations.",
+      "I duplicate communication across email, chat or meetings for the same issue.",
+      "I spend time clarifying information that should have been clear at the start.",
+      "Tasks are reassigned multiple times before completion.",
+      "Information is transferred between systems manually."
+    ]
+  },
+  I: {
+    title: "Inventory: Backlog or work waiting to be processed",
+    questions: [
+      "I have more tasks than I can realistically complete.",
+      "Emails or requests accumulate faster than I can process them.",
+      "Approvals remain pending longer than expected.",
+      "Projects sit idle before someone begins working on them.",
+      "We prepare reports before they are actually needed.",
+      "There is visible backlog in our department or workflow.",
+      "Work piles up during certain periods without capacity planning.",
+      "Tasks are started but not finished promptly."
+    ]
+  },
+  M: {
+    title: "Motion: Unnecessary movement of people or effort",
+    questions: [
+      "I spend significant time searching for documents or data.",
+      "I attend meetings that do not require my input.",
+      "I manually enter the same information more than once.",
+      "I switch between many applications during a single task.",
+      "I perform repetitive administrative steps daily.",
+      "I must follow up multiple times to get a response.",
+      "I navigate through complex folder structures to find files.",
+      "I interrupt my work frequently due to unclear processes."
+    ]
+  },
+  W: {
+    title: "Waiting: Delays before work can continue",
+    questions: [
+      "I regularly wait for approvals to proceed.",
+      "I wait for responses from other departments.",
+      "System delays slow down my productivity.",
+      "Decisions take longer than necessary.",
+      "Work is delayed due to unclear ownership.",
+      "Meetings delay actual task execution.",
+      "I experience idle time due to bottlenecks.",
+      "Deadlines are extended because of dependencies."
+    ]
+  },
+  O1: {
+    title: "Overproduction: Producing more than needed",
+    questions: [
+      "We create reports that are rarely reviewed.",
+      "We generate more data than decision-makers use.",
+      "Emails are sent to more recipients than necessary.",
+      "We prepare documents just in case.",
+      "Work is completed before it is required.",
+      "We over-communicate updates without adding value.",
+      "Multiple versions of the same document exist.",
+      "We continue producing outputs even when demand is low."
+    ]
+  },
+  O2: {
+    title: "Overprocessing: More work than the outcome requires",
+    questions: [
+      "Tasks require more approvals than necessary.",
+      "Forms collect excessive information.",
+      "We reformat documents for presentation rather than clarity.",
+      "The same data is entered into multiple systems.",
+      "We follow procedures that no longer add value.",
+      "Reports are customized beyond what stakeholders need.",
+      "We double-check work excessively due to lack of trust.",
+      "Workflows contain unnecessary review steps."
+    ]
+  },
+  D: {
+    title: "Defects: Errors and rework",
+    questions: [
+      "I correct errors in documents frequently.",
+      "Tasks are returned due to unclear requirements.",
+      "Miscommunication leads to rework.",
+      "Data errors impact decisions.",
+      "Work must be revised after stakeholder feedback.",
+      "Incorrect information causes delays.",
+      "Requirements change after work has started.",
+      "Quality issues are discovered late in the process."
+    ]
+  },
+  S: {
+    title: "Skills: Underutilized talent",
+    questions: [
+      "My skills are not fully utilized.",
+      "I perform tasks below my capability level.",
+      "Improvement ideas are not implemented.",
+      "Employees are not consulted during process changes.",
+      "Training opportunities are limited.",
+      "Decision-making is centralized unnecessarily.",
+      "Work could be automated but remains manual.",
+      "Talented employees spend time on low-value tasks."
+    ]
+  }
+};
+
+const wasteNames = {
+  T: "Transportation",
+  I: "Inventory",
+  M: "Motion",
+  W: "Waiting",
+  O1: "Overproduction",
+  O2: "Overprocessing",
+  D: "Defects",
+  S: "Skills"
+};
+
+function generateQuestions() {
+  const mount = document.getElementById("questionMount");
+
+  Object.keys(sections).forEach(sectionKey => {
+    const section = sections[sectionKey];
+    const card = document.createElement("div");
+    card.className = "assessment-card";
+    card.innerHTML = `<p class="form-kicker">Step ${Object.keys(sections).indexOf(sectionKey) + 2}</p><h2>${section.title}</h2>`;
+
+    section.questions.forEach((questionText, index) => {
+      const div = document.createElement("div");
+      div.className = "assessment-question";
+      div.innerHTML = `
+        <label for="${sectionKey}_Q${index + 1}"><strong>Q${index + 1}:</strong> ${questionText}</label>
+        <select id="${sectionKey}_Q${index + 1}" name="${sectionKey}_Q${index + 1}" required>
+          <option value="">Select</option>
+          <option value="1">1 - Never</option>
+          <option value="2">2 - Rarely</option>
+          <option value="3">3 - Sometimes</option>
+          <option value="4">4 - Often</option>
+          <option value="5">5 - Very Often</option>
+        </select>
+      `;
+      card.appendChild(div);
+    });
+
+    mount.appendChild(card);
+  });
+}
+
+function calculateWaste(data) {
+  const resultParts = [];
+
+  Object.keys(wasteNames).forEach(type => {
+    let total = 0;
+    let count = 0;
+
+    Object.keys(data).forEach(key => {
+      if (key.startsWith(type + "_Q")) {
+        total += Number(data[key]);
+        count++;
+      }
+    });
+
+    const maxScore = count * 5;
+    const percent = Math.round((total / maxScore) * 100);
+    resultParts.push(`
+      <div style="margin-bottom:20px">
+        <strong>${wasteNames[type]}</strong><br>
+        Score: ${total} / ${maxScore}<br>
+        Waste presence: ${percent}%
+        <div class="result-bar" aria-hidden="true"><span style="width:${percent}%"></span></div>
+      </div>
+    `);
+  });
+
+  document.getElementById("wasteResults").innerHTML = resultParts.join("");
+  document.getElementById("results").style.display = "block";
+  document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+generateQuestions();
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbyzKp6vIbQhe6jXPD-RrKxsydnv4l7pD2yzlRn4D89EqIsWUj3F5zY-fhVFRh7lSl8b/exec";
+
+document.getElementById("assessmentForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const submitButton = this.querySelector("button[type='submit']");
+  const submitStatus = document.getElementById("assessmentSubmitStatus");
+  const submitError = document.getElementById("assessmentSubmitError");
+  submitStatus.style.display = "none";
+  submitError.style.display = "none";
+  submitButton.disabled = true;
+  submitButton.textContent = "Submitting...";
+
+  const formData = new FormData(this);
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+  data.SubmittedAt = new Date().toISOString();
+  data.sourcePage = "assessment";
+  data.bookingLink = "https://calendar.app.google/23QnKVnAG2yPkNab8";
+
+  calculateWaste(data);
+
+  const existing = JSON.parse(localStorage.getItem("leanosWasteAssessmentData")) || [];
+  existing.push(data);
+  localStorage.setItem("leanosWasteAssessmentData", JSON.stringify(existing));
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(() => {
+      submitStatus.style.display = "block";
+    })
+    .catch(error => {
+      console.error(error);
+      submitError.style.display = "block";
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit Assessment";
+    });
+});
+</script>
+</body>
+</html>

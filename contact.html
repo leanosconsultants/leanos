@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | LeanOS Consultants</title>
+  <meta name="description" content="Contact LeanOS Consultants to book a strategy call, request an assessment, get a proposal or enroll in a course.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+
+<main>
+  <section class="hero contact-hero">
+    <div class="container">
+      <p class="eyebrow">Start here</p>
+      <h1>Tell us what you want to improve.</h1>
+      <p class="lead">
+        Submit the form and LeanOS will follow up with the right next step: strategy call, proposal, assessment, course, workshop or payment support.
+      </p>
+      <div class="button-row">
+        <a href="booking.html" class="btn-primary page-link">Book Google Meeting</a>
+        <a href="payment.html" class="btn-secondary page-link">Payment Options</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container contact-layout contact-layout-modern">
+      <aside class="contact-stack">
+        <div class="contact-card contact-profile-card">
+          <div class="mini-logo">
+            <img src="assets/images/LeanOS_logo.png" alt="LeanOS Consultants logo">
+          </div>
+          <h3>LeanOS Consultants</h3>
+          <p class="muted">Workflow automation, lean systems, quality tools and practical training for Canada and USA.</p>
+          <p><strong>Email:</strong><br><a href="mailto:leanos.consultants@gmail.com">leanos.consultants@gmail.com</a></p>
+          <p><strong>Phone:</strong><br><a href="tel:+17789962619">+1 778 996 2619</a></p>
+          <p><strong>LinkedIn:</strong><br><a href="https://www.linkedin.com/company/leanos-consultants/" target="_blank" rel="noopener">LeanOS Consultants</a></p>
+        </div>
+
+        <div class="contact-card next-step-card">
+          <h3>What happens next</h3>
+          <div class="next-step">
+            <span>1</span>
+            <p>Your form entry is sent to LeanOS.</p>
+          </div>
+          <div class="next-step">
+            <span>2</span>
+            <p>You receive a branded confirmation email.</p>
+          </div>
+          <div class="next-step">
+            <span>3</span>
+            <p>If relevant, LeanOS sends the assessment or booking next step.</p>
+          </div>
+        </div>
+      </aside>
+
+      <form id="contactForm" class="modern-form">
+        <div class="form-kicker">Inquiry form</div>
+        <h2 class="form-title">Send your request</h2>
+        <p class="muted">No internal templates or admin notes are shown to visitors. This form sends the entry to the connected backend script.</p>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="company">Company or organization</label>
+            <input type="text" id="company" name="company" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="leadType">I am contacting as</label>
+            <select id="leadType" name="leadType" required>
+              <option value="">Select one</option>
+              <option>Business owner or leader</option>
+              <option>Team manager</option>
+              <option>Employee or learner</option>
+              <option>Student or professional</option>
+              <option>Consultant</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="service">Main request</label>
+          <select id="service" name="service" required>
+            <option value="">Select a request</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">What workflow, waste, quality issue, training need or payment question should we look at?</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <input type="hidden" id="bookingLink" name="bookingLink" value="https://calendar.app.google/23QnKVnAG2yPkNab8">
+        <input type="hidden" id="sourcePage" name="sourcePage" value="contact">
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Submit Inquiry</button>
+          <a href="booking.html" class="btn-secondary page-link">Book Meeting Instead</a>
+        </div>
+
+        <p id="thankYou" class="thank-you">
+          Thank you. Your request was submitted and LeanOS Consultants will follow up by email.
+        </p>
+        <p id="formError" class="form-error">
+          Something prevented the form from sending. Please email leanos.consultants@gmail.com.
+        </p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="layout.js"></script>
+<script>
+fetch("services.txt")
+  .then(response => {
+    if (!response.ok) throw new Error("Failed to load services.txt");
+    return response.text();
+  })
+  .then(data => {
+    const services = data.split(",").map(service => service.trim()).filter(Boolean);
+    const select = document.getElementById("service");
+    services.forEach(service => {
+      const option = document.createElement("option");
+      option.value = service;
+      option.textContent = service;
+      select.appendChild(option);
+    });
+    const requestedService = new URLSearchParams(window.location.search).get("request");
+    if (requestedService) {
+      const existingOption = Array.from(select.options).find(option => option.value === requestedService);
+      if (existingOption) {
+        select.value = requestedService;
+      } else {
+        const option = document.createElement("option");
+        option.value = requestedService;
+        option.textContent = requestedService;
+        select.appendChild(option);
+        select.value = requestedService;
+      }
+    }
+  })
+  .catch(error => console.error(error));
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbyzKp6vIbQhe6jXPD-RrKxsydnv4l7pD2yzlRn4D89EqIsWUj3F5zY-fhVFRh7lSl8b/exec";
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const submitButton = this.querySelector("button[type='submit']");
+  const thankYou = document.getElementById("thankYou");
+  const formError = document.getElementById("formError");
+  thankYou.style.display = "none";
+  formError.style.display = "none";
+  submitButton.disabled = true;
+  submitButton.textContent = "Sending...";
+
+  const data = {
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    company: document.getElementById("company").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    leadType: document.getElementById("leadType").value,
+    service: document.getElementById("service").value,
+    message: document.getElementById("message").value,
+    bookingLink: document.getElementById("bookingLink").value,
+    sourcePage: document.getElementById("sourcePage").value,
+    submittedAt: new Date().toISOString()
+  };
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(() => {
+      thankYou.style.display = "block";
+      document.getElementById("contactForm").reset();
+    })
+    .catch(error => {
+      console.error(error);
+      formError.style.display = "block";
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit Inquiry";
+    });
+});
+</script>
+</body>
+</html>

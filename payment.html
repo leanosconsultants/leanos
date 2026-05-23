@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments | LeanOS Consultants</title>
+  <meta name="description" content="Payment options for LeanOS Consultants assessments, workshops, training and courses.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Secure checkout ready</p>
+      <h1>Payment options for consulting, workshops and courses.</h1>
+      <p class="lead">
+        This page is prepared for payment links from Stripe, Square, PayPal, Razorpay or another provider. Until live checkout links are added, visitors can request an invoice or payment link.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container payment-grid">
+      <article class="payment-card">
+        <p class="eyebrow">Assessment</p>
+        <h3>Lean Assessment</h3>
+        <p>Current-state review, future-state proposal and improvement opportunity sizing.</p>
+        <a class="btn-primary payment-link" data-payment-key="assessment" href="contact.html?request=Lean%20Assessment">Request Payment Link</a>
+      </article>
+
+      <article class="payment-card">
+        <p class="eyebrow">Workshop</p>
+        <h3>Team Workshop</h3>
+        <p>Waste identification, quality tools, 5S, workflow improvement or custom team training.</p>
+        <a class="btn-primary payment-link" data-payment-key="workshop" href="contact.html?request=Team%20Workshop">Request Payment Link</a>
+      </article>
+
+      <article class="payment-card">
+        <p class="eyebrow">Courses</p>
+        <h3>Lean Learning Programs</h3>
+        <p>Lean Six Sigma belts, 7 QC tools, 32 lean tools and corporate training paths.</p>
+        <a class="btn-primary payment-link" data-payment-key="course" href="contact.html?request=Course%20Enrollment">Request Payment Link</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="story-band">
+    <div class="container split">
+      <div class="section-heading">
+        <p class="eyebrow">Payment gateway note</p>
+        <h2>No card data is collected by this website.</h2>
+        <p>
+          The safest setup is to use hosted checkout pages from a payment provider. Clients click a payment button, complete checkout on the secure provider page, and LeanOS receives confirmation from that provider.
+        </p>
+      </div>
+      <div class="visual-card">
+        <h3>Provider links needed</h3>
+        <p>Send checkout links for each offer when ready. I can then replace the request buttons with live Pay buttons.</p>
+        <ul class="plain-list">
+          <li>Lean Assessment checkout link</li>
+          <li>Workshop checkout link</li>
+          <li>Course checkout link</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="layout.js"></script>
+<script src="payment-config.js"></script>
+</body>
+</html>
