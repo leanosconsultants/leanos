@@ -13,13 +13,18 @@
 
 <main>
   <section class="assessment-header modern-assessment-hero">
-    <div class="container split">
-      <div>
+    <div class="container assessment-hero-grid">
+      <div class="assessment-hero-copy">
         <p class="eyebrow">Free assessment</p>
         <h1>LeanOS Waste Assessment</h1>
         <p class="lead">
           Rate common workflow issues from 1 (never) to 5 (very often). Use the score to spot waste, training needs and automation opportunities.
         </p>
+        <div class="assessment-stat-row">
+          <span><strong>8</strong> waste categories</span>
+          <span><strong>64</strong> practical questions</span>
+          <span><strong>1</strong> instant score</span>
+        </div>
       </div>
       <div class="assessment-summary-card">
         <img class="summary-image" src="assets/images/leanos-assessment-board.jpg" alt="Operations improvement board">
@@ -31,12 +36,27 @@
     </div>
   </section>
 
-  <section>
-    <div class="container">
+  <section class="assessment-tool-section">
+    <div class="container assessment-layout">
+      <aside class="assessment-guide" aria-label="Assessment guide">
+        <p class="eyebrow">How to score</p>
+        <h2>Use your normal work week as the reference.</h2>
+        <div class="score-guide">
+          <span>1 Never</span>
+          <span>2 Rarely</span>
+          <span>3 Sometimes</span>
+          <span>4 Often</span>
+          <span>5 Very often</span>
+        </div>
+        <p class="muted">Answer quickly. The value is in the pattern across categories, not perfect precision on every question.</p>
+      </aside>
+
       <form id="assessmentForm" class="modern-form assessment-form">
-        <div class="assessment-card">
-          <p class="form-kicker">Step 1</p>
-          <h2>General information</h2>
+        <div class="assessment-card assessment-info-card">
+          <div class="assessment-card-heading">
+            <p class="form-kicker">Step 1</p>
+            <h2>General information</h2>
+          </div>
 
           <div class="form-row">
             <div>
@@ -89,9 +109,9 @@
           </div>
         </div>
 
-        <div id="questionMount"></div>
+        <div id="questionMount" class="assessment-category-grid"></div>
 
-        <div class="assessment-actions">
+        <div class="assessment-actions assessment-submit-bar">
           <button type="submit" class="btn-primary">Submit Assessment</button>
           <a href="booking.html" class="btn-secondary page-link">Book Strategy Call</a>
         </div>
@@ -241,22 +261,28 @@ function generateQuestions() {
   Object.keys(sections).forEach(sectionKey => {
     const section = sections[sectionKey];
     const card = document.createElement("div");
-    card.className = "assessment-card";
-    card.innerHTML = `<p class="form-kicker">Step ${Object.keys(sections).indexOf(sectionKey) + 2}</p><h2>${section.title}</h2>`;
+    card.className = "assessment-card assessment-category-card";
+    card.innerHTML = `
+      <div class="assessment-card-heading">
+        <p class="form-kicker">Step ${Object.keys(sections).indexOf(sectionKey) + 2}</p>
+        <h2>${section.title}</h2>
+      </div>
+    `;
 
     section.questions.forEach((questionText, index) => {
       const div = document.createElement("div");
       div.className = "assessment-question";
       div.innerHTML = `
-        <label for="${sectionKey}_Q${index + 1}"><strong>Q${index + 1}:</strong> ${questionText}</label>
-        <select id="${sectionKey}_Q${index + 1}" name="${sectionKey}_Q${index + 1}" required>
-          <option value="">Select</option>
-          <option value="1">1 - Never</option>
-          <option value="2">2 - Rarely</option>
-          <option value="3">3 - Sometimes</option>
-          <option value="4">4 - Often</option>
-          <option value="5">5 - Very Often</option>
-        </select>
+        <fieldset>
+          <legend><strong>Q${index + 1}:</strong> ${questionText}</legend>
+          <div class="score-options" aria-label="Score from 1 never to 5 very often">
+            <label><input type="radio" name="${sectionKey}_Q${index + 1}" value="1" required><span>1</span></label>
+            <label><input type="radio" name="${sectionKey}_Q${index + 1}" value="2"><span>2</span></label>
+            <label><input type="radio" name="${sectionKey}_Q${index + 1}" value="3"><span>3</span></label>
+            <label><input type="radio" name="${sectionKey}_Q${index + 1}" value="4"><span>4</span></label>
+            <label><input type="radio" name="${sectionKey}_Q${index + 1}" value="5"><span>5</span></label>
+          </div>
+        </fieldset>
       `;
       card.appendChild(div);
     });

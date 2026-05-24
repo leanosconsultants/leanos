@@ -12,14 +12,19 @@
 <div id="header-placeholder"></div>
 
 <main>
-  <section class="hero">
+  <section class="hero home-hero">
     <div class="container hero-grid">
-      <div>
+      <div class="hero-copy">
         <p class="eyebrow">Lean systems for practical growth</p>
-        <h1>Automate workflows. Reduce waste. Move work from hours to seconds.</h1>
+        <h1>Automate workflows. Reduce waste.</h1>
         <p class="lead">
-          LeanOS Consultants helps teams and companies build AI agents, lean operating systems and better workflows across websites, daily operations and service delivery.
+          LeanOS Consultants helps teams move work from hours to seconds with lean operating systems, AI agents and practical workflow design.
         </p>
+        <div class="hero-badges" aria-label="LeanOS focus areas">
+          <span class="mini-badge">Workflow diagnostics</span>
+          <span class="mini-badge">Waste reduction</span>
+          <span class="mini-badge">AI agent enablement</span>
+        </div>
         <div class="button-row">
           <a href="contact.html" class="btn-primary page-link">Book a Strategy Call</a>
           <a href="office_assessment.html" class="btn-secondary page-link">Request an Assessment</a>
@@ -27,7 +32,7 @@
       </div>
 
       <aside class="hero-visual" aria-label="LeanOS workflow transformation snapshot">
-        <img class="visual-photo" src="assets/images/leanos-hero-operations.jpg" alt="Clean visual management area in an organized production environment">
+        <img class="visual-photo" src="assets/images/leanos-assessment-board.jpg" alt="LeanOS operations assessment board">
         <div class="visual-top">
           <div>
             <p class="eyebrow">LeanOS dashboard</p>
@@ -62,6 +67,38 @@
           </div>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <section class="proof-band">
+    <div class="container">
+      <div class="proof-stats">
+        <div>
+          <strong>8</strong>
+          <span>waste categories assessed</span>
+        </div>
+        <div>
+          <strong>64</strong>
+          <span>workflow questions</span>
+        </div>
+        <div>
+          <strong>5</strong>
+          <span>implementation steps</span>
+        </div>
+        <div>
+          <strong>4</strong>
+          <span>next-action paths</span>
+        </div>
+      </div>
+
+      <div class="sector-strip" aria-label="Industries LeanOS can support">
+        <span>Manufacturing</span>
+        <span>Logistics</span>
+        <span>Retail</span>
+        <span>Healthcare</span>
+        <span>Professional Services</span>
+        <span>Startups</span>
+      </div>
     </div>
   </section>
 
@@ -128,6 +165,52 @@
           <h3>Train, implement and improve</h3>
           <p>Build team capability through workshops, courses, quality tools and hands-on implementation support.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="roi-section">
+    <div class="container split">
+      <div class="section-heading">
+        <p class="eyebrow">Estimate the opportunity</p>
+        <h2>See what manual workflow time could be costing each year.</h2>
+        <p>
+          This simple calculator turns repeated admin time into a practical improvement estimate. Use it as a discussion starter before an assessment or strategy call.
+        </p>
+      </div>
+
+      <div class="roi-calculator" data-roi-calculator>
+        <div class="roi-field">
+          <div>
+            <label for="roiHours">Manual hours per month</label>
+            <output id="roiHoursValue">80</output>
+          </div>
+          <input type="range" id="roiHours" min="10" max="400" step="10" value="80">
+        </div>
+
+        <div class="roi-field">
+          <div>
+            <label for="roiRate">Average loaded hourly cost</label>
+            <output id="roiRateValue">$45</output>
+          </div>
+          <input type="range" id="roiRate" min="20" max="150" step="5" value="45">
+        </div>
+
+        <div class="roi-field">
+          <div>
+            <label for="roiReduction">Potential time reduction</label>
+            <output id="roiReductionValue">25%</output>
+          </div>
+          <input type="range" id="roiReduction" min="5" max="60" step="5" value="25">
+        </div>
+
+        <div class="roi-result">
+          <p>Estimated annual opportunity</p>
+          <strong id="roiAnnual">$10,800</strong>
+          <span id="roiMonthly">$900 per month</span>
+        </div>
+
+        <a href="office_assessment.html" class="btn-primary page-link">Start with the Assessment</a>
       </div>
     </div>
   </section>

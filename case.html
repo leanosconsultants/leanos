@@ -24,43 +24,61 @@
 
   <section>
     <div class="container">
-      <div class="section-heading center">
-        <p class="eyebrow">Case study samples</p>
-        <h2>Four styles that fit LeanOS work</h2>
+      <div class="case-section-header">
+        <h2>LeanOS Case Studies</h2>
+        <div class="case-controls" aria-label="Case study carousel controls">
+          <button class="case-arrow case-arrow-prev" type="button" data-case-prev aria-label="Previous case studies"></button>
+          <button class="case-arrow case-arrow-next" type="button" data-case-next aria-label="Next case studies"></button>
+        </div>
       </div>
 
-      <div class="case-grid">
-        <article class="case-card">
-          <h3>Before and After Workflow</h3>
-          <p><strong>Client type:</strong> Small manufacturer</p>
-          <p><strong>Problem:</strong> Manual handoffs and unclear ownership delayed customer orders.</p>
-          <p><strong>LeanOS approach:</strong> Current-state map, bottleneck review, standard work and daily visibility board.</p>
-          <p><strong>Result to add:</strong> Lead time reduction, fewer escalations and clearer accountability.</p>
-        </article>
+      <div class="case-carousel" data-case-carousel>
+        <div class="case-track" tabindex="0" aria-label="Case study carousel">
+          <article class="case-card case-slide">
+            <div class="case-meta">Small manufacturer</div>
+            <h3>Before and After Workflow</h3>
+            <div class="case-points">
+              <p><strong>Situation:</strong> Customer orders moved through manual handoffs, unclear approvals and repeated status checks.</p>
+              <p><strong>LeanOS approach:</strong> Current-state map, bottleneck review, standard work, daily visibility board and a future-state workflow proposal.</p>
+              <p><strong>Implementation focus:</strong> Ownership rules, queue limits, escalation triggers and simple dashboard measures.</p>
+              <p><strong>Result to add:</strong> Lead time reduction, fewer escalations, clearer accountability and measurable order-flow stability.</p>
+            </div>
+          </article>
 
-        <article class="case-card">
-          <h3>Waste Removal Sprint</h3>
-          <p><strong>Client type:</strong> Professional services team</p>
-          <p><strong>Problem:</strong> Employees repeated admin steps across email, spreadsheets and shared folders.</p>
-          <p><strong>LeanOS approach:</strong> TIMWOODS workshop, automation shortlist and quick implementation plan.</p>
-          <p><strong>Result to add:</strong> Time saved per week and tasks moved from manual to automated.</p>
-        </article>
+          <article class="case-card case-slide">
+            <div class="case-meta">Professional services</div>
+            <h3>Waste Removal Sprint</h3>
+            <div class="case-points">
+              <p><strong>Situation:</strong> Employees repeated admin steps across email, spreadsheets and shared folders.</p>
+              <p><strong>LeanOS approach:</strong> TIMWOODS workshop, waste scoring, automation shortlist and a quick implementation plan.</p>
+              <p><strong>Implementation focus:</strong> Intake standardization, duplicate-entry removal and clearer document storage routines.</p>
+              <p><strong>Result to add:</strong> Time saved per week, fewer manual follow-ups and tasks moved from manual to automated.</p>
+            </div>
+          </article>
 
-        <article class="case-card">
-          <h3>Quality System Setup</h3>
-          <p><strong>Client type:</strong> Small healthcare clinic</p>
-          <p><strong>Problem:</strong> Rework and inconsistent documentation created service delays.</p>
-          <p><strong>LeanOS approach:</strong> Quality assessment toolkit, 7 QC tools and visual error tracking.</p>
-          <p><strong>Result to add:</strong> Error reduction, faster response time and cleaner audit trail.</p>
-        </article>
+          <article class="case-card case-slide">
+            <div class="case-meta">Healthcare clinic</div>
+            <h3>Quality System Setup</h3>
+            <div class="case-points">
+              <p><strong>Situation:</strong> Rework and inconsistent documentation created delays and made audits harder.</p>
+              <p><strong>LeanOS approach:</strong> Quality assessment toolkit, 7 QC tools, visual error tracking and practical assurance routines.</p>
+              <p><strong>Implementation focus:</strong> Defect categories, standard forms, cause-and-effect review and weekly quality check-ins.</p>
+              <p><strong>Result to add:</strong> Error reduction, faster response time, cleaner audit trail and better team confidence.</p>
+            </div>
+          </article>
 
-        <article class="case-card">
-          <h3>Training Transformation</h3>
-          <p><strong>Client type:</strong> Retail or apparel team</p>
-          <p><strong>Problem:</strong> Improvement ideas existed but teams lacked a shared method.</p>
-          <p><strong>LeanOS approach:</strong> Lean basics, 5S, waste identification and team workshop activities.</p>
-          <p><strong>Result to add:</strong> Implemented ideas, participation rate and visible team improvements.</p>
-        </article>
+          <article class="case-card case-slide">
+            <div class="case-meta">Retail or apparel team</div>
+            <h3>Training Transformation</h3>
+            <div class="case-points">
+              <p><strong>Situation:</strong> Improvement ideas existed, but teams lacked a shared method for selecting and testing changes.</p>
+              <p><strong>LeanOS approach:</strong> Lean basics, 5S, waste identification, team workshop activities and idea capture routines.</p>
+              <p><strong>Implementation focus:</strong> Practical exercises, team ownership, visible idea boards and short improvement cycles.</p>
+              <p><strong>Result to add:</strong> Implemented ideas, participation rate, visible workplace improvements and stronger daily habits.</p>
+            </div>
+          </article>
+        </div>
+
       </div>
     </div>
   </section>
@@ -97,5 +115,34 @@
 
 <div id="footer-placeholder"></div>
 <script src="layout.js"></script>
+<script>
+  const caseCarousel = document.querySelector("[data-case-carousel]");
+
+  if (caseCarousel) {
+    const track = caseCarousel.querySelector(".case-track");
+    const nextButton = caseCarousel.querySelector("[data-case-next]");
+    const prevButton = caseCarousel.querySelector("[data-case-prev]");
+
+    function slideAmount() {
+      const firstCard = track.querySelector(".case-slide");
+      return firstCard ? firstCard.getBoundingClientRect().width + 22 : track.clientWidth;
+    }
+
+    function scrollCases(direction = 1) {
+      const maxScroll = track.scrollWidth - track.clientWidth - 4;
+      if (direction > 0 && track.scrollLeft >= maxScroll) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+      } else if (direction < 0 && track.scrollLeft <= 4) {
+        track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
+      } else {
+        track.scrollBy({ left: slideAmount() * direction, behavior: "smooth" });
+      }
+    }
+
+    nextButton.addEventListener("click", () => scrollCases(1));
+    prevButton.addEventListener("click", () => scrollCases(-1));
+    window.setInterval(() => scrollCases(1), 6000);
+  }
+</script>
 </body>
 </html>
